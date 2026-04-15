@@ -1,14 +1,18 @@
 # AI Design Processes
 
-A collection of structured AI-assisted design workflows and skills.
+A collection of structured AI-assisted design workflows, skills, and systems for design teams.
 
 ## Skills
 
-### Style System Builder
+### style-system
 
-Extracts typography and color tokens from layouts,
-normalizes naming,
-extends missing scale steps,
-and prepares a structured style system in planning mode before applying changes.
+Builds a structured typography and color style system from existing layouts.
 
-This skill is designed for Claude Code workflows.
+Includes:
+- typography extraction
+- color extraction
+- scale extension
+- naming normalization
+- accessibility validation
+
+Designed for Claude Code + Figma MCP workflows.
