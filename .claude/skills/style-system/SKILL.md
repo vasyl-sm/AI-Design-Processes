@@ -1,4 +1,346 @@
 ---
-name: style-system
-description: Extract, normalize, extend, and apply typography and color styles from a Figma layout in planning mode.
+name: style-system-builder
+description: Extract, normalize, extend, and apply typography and color styles from a Figma layout using planning mode.
 ---
+
+# Style System Builder
+
+Build a normalized typography and color style system from an existing Figma layout.
+
+Operate in planning mode before applying any changes.
+
+This skill:
+
+- reads styles from the canvas
+- detects inconsistencies
+- clusters related values
+- proposes a system
+- extends missing scale steps
+- merges palettes with project defaults
+- validates accessibility
+- asks confirmation
+- applies styles only after approval
+
+
+# Operating Mode
+
+Always run in planning mode.
+
+Pipeline:
+
+1. Read all local text styles
+2. Read all local color styles
+3. Extract typography scale
+4. Extract grayscale palette
+5. Detect semantic colors
+6. Detect duplicates
+7. Detect near-duplicates
+8. Detect missing scale steps
+9. Propose normalized system
+10. Show preview
+11. Ask confirmation
+12. Apply changes only after approval
+
+
+# Typography System Rules
+
+Base rhythm:
+
+2px
+
+
+Canonical typography scale:
+
+10
+12
+14
+16
+18
+22
+24
+28
+32
+
+
+Role mapping:
+
+Heading → semibold  
+Body → regular  
+Action → medium  
+Label → medium or regular
+
+
+Cluster detected styles into semantic roles before naming:
+
+Heading
+Body
+Action
+Label
+
+
+Do not generate purely numeric text styles unless classification is ambiguous.
+
+
+If detected typography sizes are near each other:
+
+cluster to nearest approved step
+
+
+If scale steps are missing:
+
+propose extension
+
+
+Example:
+
+Detected:
+
+14
+16
+18
+32
+
+Proposed:
+
+12
+22
+24
+28
+
+Ask confirmation before creation.
+
+
+# Line Height and Tracking Rules
+
+Infer spacing from role:
+
+Heading:
+
+- tighter line height
+- optional tighter tracking for large sizes
+
+Body:
+
+- neutral line height
+- neutral tracking
+
+Label / Action:
+
+- compact line height
+- optional wider tracking for dense UI labels
+
+
+Never leave inferred values undefined when extending scale.
+
+
+# Color System Layers
+
+Build color styles in layers:
+
+1. Neutral palette
+2. Brand / accent palette
+3. Semantic palette
+
+
+Always normalize Neutral palette first.
+
+
+# Neutral Palette Template
+
+Merge detected grayscale with baseline template:
+
+White
+
+Gray 15
+Gray 25
+Gray 50
+Gray 100
+Gray 200
+Gray 300
+Gray 400
+Gray 500
+Gray 600
+Gray 700
+Gray 800
+
+
+Never replace project grayscale.
+
+Always merge and normalize.
+
+
+Example behavior:
+
+Detected:
+
+#111111
+#2A2A2A
+#444444
+
+Propose mapping into:
+
+Color / Neutral / 700
+Color / Neutral / 600
+Color / Neutral / 500
+
+
+Ask confirmation before applying.
+
+
+Avoid defaulting to pure black or pure white unless explicitly required by the layout.
+
+
+# Semantic Colors
+
+Ensure presence of baseline semantic colors:
+
+Success
+Error
+
+
+If missing:
+
+propose creation
+
+
+Also check:
+
+Warning
+Info
+
+
+Do not create optional semantic colors silently.
+
+
+Always confirm before creation.
+
+
+# Accent Color Clustering
+
+If multiple accent hues detected:
+
+cluster into constrained palette families
+
+
+Prefer intentional accent groups over preserving one-off colors.
+
+
+Ask confirmation before palette consolidation.
+
+
+# Accessibility Validation
+
+Before applying proposed color system:
+
+validate contrast for:
+
+primary body text
+secondary body text
+large headings
+UI component boundaries
+
+
+Contrast thresholds:
+
+Body text ≥ 4.5:1  
+Large text ≥ 3:1  
+UI boundaries ≥ 3:1
+
+
+If violations detected:
+
+report before applying styles
+
+
+Offer adjustment suggestions.
+
+
+# Naming Convention
+
+Text styles:
+
+Text / Heading / {size}
+Text / Body / {size}
+Text / Action / {size}
+Text / Label / {size}
+
+
+Color styles:
+
+Color / Neutral / {step}
+
+Color / Semantic / Success
+Color / Semantic / Error
+Color / Semantic / Warning
+Color / Semantic / Info
+
+
+Do not generate unnamed styles.
+
+
+Always normalize naming before creation.
+
+
+# Style Deduplication Rules
+
+If styles differ only slightly:
+
+cluster together
+
+
+Example:
+
+31px
+32px
+30px
+
+Normalize:
+
+Text / Heading / 32
+
+
+Ask confirmation before merge.
+
+
+# System-First Normalization Policy
+
+Treat detected styles as candidate system inputs, not final truth.
+
+
+Prefer normalization over duplication.
+
+
+Do not preserve random one-off values unless confirmed intentional.
+
+
+Constrain palette hue count when possible.
+
+
+Prefer role-based hierarchy over size-only hierarchy.
+
+
+# Preview Output Requirements
+
+Before applying:
+
+show detected typography scale
+
+show detected grayscale palette
+
+show detected semantic palette
+
+show missing steps
+
+show clustering decisions
+
+show proposed naming
+
+show accessibility warnings
+
+show palette merges
+
+
+Then request confirmation.
+
+
+Apply changes only after approval.
